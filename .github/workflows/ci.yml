@@ -17,16 +17,12 @@ jobs:
       matrix:
         python:
           - name: CPython 2.7
-            tox: py27
             action: 2.7
           - name: CPython 3.9
-            tox: py39
             action: 3.9
           - name: PyPy 2
-            tox: pypy2
             action: pypy2
           - name: PyPy 3
-            tox: pypy3
             action: pypy3
 
     steps:
