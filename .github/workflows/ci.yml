@@ -39,6 +39,11 @@ jobs:
       with:
         output-path: output.log
 
+    - uses: actions/upload-artifact@v2
+      with:
+        name: output.log
+        path: output.log
+
     - name: Test
       run: cat output.log
 
