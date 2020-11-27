@@ -17,4 +17,4 @@ runs:
       run: |
         python info.py
       env:
-        ACTION_FILE_PATH: ${{ inputs.output_path }}
+        ACTION_FILE_PATH: ${{ inputs.output-path }}
