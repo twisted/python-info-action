@@ -7,6 +7,7 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - id: the_run
+    - name: Run info.py
+      id: the_run
       run: |
         python info.py
