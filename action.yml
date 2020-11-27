@@ -7,7 +7,7 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Run info.py
+    - shell: bash
       id: the_run
       run: |
         python info.py
