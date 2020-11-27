@@ -74,12 +74,17 @@ runs:
 
         output.heading("Installed Packages")
 
-        try:
-            subprocess.check_call([sys.executable, "-m", "pip", "--no-python-version-warning"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        except subprocess.CalledProcessError:
-            supports_no_warning = False
-        else:
-            supports_no_warning = True
+        with open(os.devnull, 'w') as devnull:
+            try:
+                subprocess.check_call(
+                    [sys.executable, "-m", "pip", "--no-python-version-warning"],
+                    stdout=devnull,
+                    stderr=devnull,
+                )
+            except subprocess.CalledProcessError:
+                supports_no_warning = False
+            else:
+                supports_no_warning = True
 
         arguments = []
         if supports_no_warning:
