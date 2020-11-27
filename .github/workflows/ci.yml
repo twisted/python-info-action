@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+    tags:
+      - "*"
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  ci:
+    name: ${{ matrix.task.name}} - ${{ matrix.python.name }}
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python:
+          - name: CPython 2.7
+            tox: py27
+            action: 2.7
+          - name: CPython 3.9
+            tox: py39
+            action: 3.9
+          - name: PyPy 2
+            tox: pypy2
+            action: pypy2
+          - name: PyPy 3
+            tox: pypy3
+            action: pypy3
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up ${{ matrix.python.name }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python.action }}
+
+    - uses: ./
+
+  all:
+    name: All
+    runs-on: ubuntu-latest
+    needs:
+      - ci
+    steps:
+      - name: This
+        shell: python
+        run: |
+          import this
