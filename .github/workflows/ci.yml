@@ -41,7 +41,7 @@ jobs:
 
     - uses: actions/upload-artifact@v2
       with:
-        name: output.log
+        name: ${{ matrix.task.name}} - ${{ matrix.python.name }} - output.log
         path: output.log
 
     - name: Test
