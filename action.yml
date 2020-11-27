@@ -74,7 +74,18 @@ runs:
 
         output.heading("Installed Packages")
 
-        freeze = subprocess.check_output([sys.executable, "-m", "pip", "freeze"])
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "--no-python-version-warning"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except subprocess.CalledProcessError:
+            supports_no_warning = False
+        else:
+            supports_no_warning = True
+
+        arguments = []
+        if supports_no_warning:
+            arguments.append("--no-python-version-warning")
+
+        freeze = subprocess.check_output([sys.executable, "-m", "pip", "freeze", *arguments])
 
         if PY3:
             freeze = freeze.decode()
