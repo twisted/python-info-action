@@ -1,9 +1,14 @@
 name: Python environment information
 description: "Print various Python environment information including installed packages"
+outputs:
+  output:
+    description: "The full informational output"
+    value: ${{ steps.the_run.outputs.output }}
 runs:
   using: "composite"
   steps:
     - shell: python
+      id: the_run
       run: |
         from __future__ import print_function
 
