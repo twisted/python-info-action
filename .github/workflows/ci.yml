@@ -37,7 +37,12 @@ jobs:
       with:
         python-version: ${{ matrix.python.action }}
 
-    - uses: ./
+    - name: Run the action
+      uses: ./
+      id: the_action
+
+    - name: Test
+      run: echo ${{ job.the_action.outputs.output }}
 
   all:
     name: All
