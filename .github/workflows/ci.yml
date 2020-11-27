@@ -37,7 +37,7 @@ jobs:
       uses: ./
       id: the_action
       with:
-        output-file: output.log
+        output-path: output.log
 
     - name: Test
       run: cat output.log

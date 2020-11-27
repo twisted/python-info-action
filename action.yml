@@ -1,5 +1,10 @@
 name: Python environment information
 description: "Print various Python environment information including installed packages"
+inputs:
+  output-path:
+    description: "A file path to write the information to."
+    required: False
+    default: ""
 outputs:
   output:
     description: "The full informational output"
@@ -11,3 +16,5 @@ runs:
       id: the_run
       run: |
         python info.py
+      env:
+        ACTION_FILE_PATH: ${{ inputs.output_path }}
