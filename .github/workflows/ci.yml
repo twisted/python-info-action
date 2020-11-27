@@ -36,9 +36,11 @@ jobs:
     - name: Run the action
       uses: ./
       id: the_action
+      with:
+        output-file: output.log
 
     - name: Test
-      run: echo ${{ job.the_action.outputs.output }}
+      run: cat output.log
 
   all:
     name: All

@@ -19,14 +19,14 @@ else:
 
 class Output:
     def __init__(self):
-        self.lines = []
+        self.chunks = []
 
     def print(self, *args, **kwargs):
         file = NativeIO()
         print(*args, file=file, **kwargs)
-        s = file.getvalue()
-        sys.stdout.write(s)
-        self.lines.extend(s.splitlines())
+        chunk = file.getvalue()
+        sys.stdout.write(chunk)
+        self.chunks.extend(chunk)
 
     def heading(self, name):
         self.print()
@@ -34,9 +34,8 @@ class Output:
         self.print("=" * len(name))
         self.print()
 
-    def set_output(self):
-        for line in self.lines:
-            print("::set-output name=output::{}".format(line))
+    def value(self, file):
+        return "".join(chunk for chunk in self.chunks)
 
 output = Output()
 
@@ -94,4 +93,7 @@ if len(freeze) > 0:
 else:
     output.print("None")
 
-output.set_output()
+output_path = os.environ.get("ACTION_FILE_PATH", "")
+if output_path != "":
+    with open(output_path, 'w') as f:
+        f.write(output.value())
