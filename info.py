@@ -82,7 +82,9 @@ arguments = []
 if supports_no_warning:
     arguments.append("--no-python-version-warning")
 
-freeze = subprocess.check_output([sys.executable, "-m", "pip", "freeze"] + arguments)
+freeze = subprocess.check_output(
+    [sys.executable, "-m", "pip", "freeze", "--all"] + arguments,
+)
 
 if PY3:
     freeze = freeze.decode()
