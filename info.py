@@ -34,7 +34,7 @@ class Output:
         self.print("=" * len(name))
         self.print()
 
-    def value(self, file):
+    def value(self):
         return "".join(chunk for chunk in self.chunks)
 
 output = Output()
