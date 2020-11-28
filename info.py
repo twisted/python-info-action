@@ -90,7 +90,7 @@ if PY3:
     freeze = freeze.decode()
 
 freeze = freeze.strip()
-freeze = freeze.replace("\r\r", "\n")
+freeze = freeze.replace("\r\n", "\n")
 if len(freeze) > 0:
     output.print(freeze)
 else:
