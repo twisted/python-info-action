@@ -52,7 +52,7 @@ def main(raw_arguments):
     arguments.package.append(("pip", pip.__version__))
 
     for name, version in arguments.package:
-        print("checking for: {}, {}", name, version)
+        print("checking for: {}, {}".format(name, version))
         assert re.search(
             "^{}=={}$".format(re.escape(name), re.escape(version)),
             output,
