@@ -36,13 +36,13 @@ def main(raw_arguments):
     relative_path = os.path.relpath(arguments.path, os.getcwd())
 
     assert re.search(
-        "^'ACTION_FILE_PATH' +: '{}'$".format(relative_path),
+        "^'ACTION_FILE_PATH' +: '{}'$".format(re.escape(relative_path)),
         output,
         re.MULTILINE,
     )
 
     assert re.search(
-        "^sys.prefix +: {}$".format(sys.prefix),
+        "^sys.prefix +: {}$".format(re.escape(sys.prefix)),
         output,
         re.MULTILINE,
     )
@@ -51,7 +51,7 @@ def main(raw_arguments):
 
     for name, version in arguments.package:
         assert re.search(
-            "^{}=={}$".format(name, version),
+            "^{}=={}$".format(re.escape(name), re.escape(version)),
             output,
             re.MULTILINE,
         )
