@@ -30,7 +30,15 @@ GitHub provides |uses_documentation|_.
 Compatibility
 -------------
 
-Basic tests are run against CPython 2.7, 3.5, 3.6, 3.7, 3.8, and 3.9 as well as PyPy 2 and 3.
+Basic tests are run against various Python versions and operating systems.
+
+- Operating
+  - Linux
+  - macOS
+  - Windows
+- Python
+  - CPython 2.7, 3.5, 3.6, 3.7, 3.8, and 3.9
+  - PyPy 2 and 3
 
 Sample Output
 -------------
