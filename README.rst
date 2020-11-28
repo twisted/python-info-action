@@ -12,13 +12,13 @@ The point of providing this feature as a GitHub Action is that it can be added t
 
 .. code-block:: yaml
 
-    - uses: twisted/python-info-action@v1
+    - uses: twisted/python-info-action@v1.0.1
 
 If you want the output stored to a file you can specify a path for this.
 
 .. code-block:: yaml
 
-    - uses: twisted/python-info-action@v1
+    - uses: twisted/python-info-action@v1.0.1
       with:
         output-path: environment.log
 
