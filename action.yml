@@ -12,9 +12,8 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - shell: bash
+    - shell: python
       id: the_run
-      run: |
-        python info.py
+      run: $/info.py
       env:
         ACTION_FILE_PATH: ${{ inputs.output-path }}
