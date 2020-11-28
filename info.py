@@ -89,7 +89,8 @@ freeze = subprocess.check_output(
 if PY3:
     freeze = freeze.decode()
 
-freeze.strip()
+freeze = freeze.strip()
+freeze = freeze.replace("\r\r", "\n")
 if len(freeze) > 0:
     output.print(freeze)
 else:
