@@ -27,6 +27,11 @@ GitHub provides |uses_documentation|_.
 .. |uses_documentation| replace:: more documentation for ``uses``
 .. _uses_documentation: https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepsuses
 
+Compatibility
+-------------
+
+Basic tests are run against CPython 2.7, 3.5, 3.6, 3.7, 3.8, and 3.9 as well as PyPy 2 and 3.
+
 Sample Output
 -------------
 

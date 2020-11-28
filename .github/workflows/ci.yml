@@ -7,6 +7,9 @@ on:
       - "*"
   pull_request:
     branches: [ main ]
+  schedule:
+    # Daily at 04:52
+    - cron: '52 4 * * *'
 
 jobs:
   ci:
@@ -18,6 +21,14 @@ jobs:
         python:
           - name: CPython 2.7
             action: 2.7
+          - name: CPython 3.5
+            action: 3.5
+          - name: CPython 3.6
+            action: 3.6
+          - name: CPython 3.7
+            action: 3.7
+          - name: CPython 3.8
+            action: 3.8
           - name: CPython 3.9
             action: 3.9
           - name: PyPy 2
