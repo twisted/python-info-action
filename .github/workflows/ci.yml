@@ -39,9 +39,9 @@ jobs:
           - name: CPython 3.9
             action: 3.9
           - name: PyPy 2
-            action: pypy2
+            action: pypy-2
           - name: PyPy 3
-            action: pypy3
+            action: pypy-3
 
     steps:
     - uses: actions/checkout@v2
