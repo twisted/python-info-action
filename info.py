@@ -57,18 +57,6 @@ environment = dict(os.environ)
 
 context_prefix = "_PYTHON_INFO_ACTION_CONTEXT_"
 
-output.heading("Workflow Details", 0)
-
-contexts = {
-    key[len(context_prefix) :]: json.loads(value)
-    for key, value in environment.items()
-    if key.startswith(context_prefix)
-}
-
-for name, value in contexts.items():
-    output.heading(name, level=1)
-    output.print(json.dumps(value, indent=4))
-
 output.heading("Python Details", 0)
 
 output.print("sys.version              :", sys.version)
@@ -118,6 +106,18 @@ if len(freeze) > 0:
     output.print(freeze)
 else:
     output.print("None")
+
+output.heading("Workflow Details", 0)
+
+contexts = {
+    key[len(context_prefix) :]: json.loads(value)
+    for key, value in environment.items()
+    if key.startswith(context_prefix)
+}
+
+for name, value in contexts.items():
+    output.heading(name, level=1)
+    output.print(json.dumps(value, indent=4))
 
 output_path = os.environ.get("ACTION_FILE_PATH", "")
 if output_path != "":
