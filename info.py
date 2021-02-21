@@ -53,14 +53,14 @@ output = Output()
 
 environment = dict(os.environ)
 
-context_names = [
+context_names = {
     "GITHUB_CONTEXT",
     "JOB_CONTEXT",
     "STEPS_CONTEXT",
     "RUNNER_CONTEXT",
     "STRATEGY_CONTEXT",
     "MATRIX_CONTEXT",
-]
+}
 
 output.heading("Workflow Details")
 output.print_mapping(
@@ -77,7 +77,11 @@ output.print('struct.calcsize("P") * 8 :', struct.calcsize("P") * 8)
 
 output.heading("Environment Variables")
 
-output.print_mapping(mapping=environment)
+output.print_mapping(
+    mapping={
+        key: value for key, value in environment.items() if key not in context_names
+    },
+)
 
 output.heading("Installed Packages")
 
