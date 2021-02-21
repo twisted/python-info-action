@@ -38,9 +38,9 @@ class Output:
         return "".join(chunk for chunk in self.chunks)
 
     def print_mapping(self, mapping):
-        maximum_key_length = max(len(repr(key)) for key in environment.keys())
+        maximum_key_length = max(len(repr(key)) for key in mapping.keys())
 
-        for name, value in sorted(environment.items()):
+        for name, value in sorted(mapping.items()):
             line = "{: <{}} : {}".format(
                 repr(name),
                 maximum_key_length,
