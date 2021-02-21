@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import io
+import json
 import os
 import struct
 import subprocess
@@ -20,6 +21,7 @@ else:
 class Output:
     def __init__(self):
         self.chunks = []
+        self.heading_marks = ["=", "-"]
 
     def print(self, *args, **kwargs):
         file = NativeIO()
@@ -28,10 +30,10 @@ class Output:
         sys.stdout.write(chunk)
         self.chunks.extend(chunk)
 
-    def heading(self, name):
+    def heading(self, name, level):
         self.print()
         self.print(name)
-        self.print("=" * len(name))
+        self.print(self.heading_marks[level] * len(name))
         self.print()
 
     def value(self):
@@ -55,16 +57,19 @@ environment = dict(os.environ)
 
 context_prefix = "_PYTHON_INFO_ACTION_CONTEXT_"
 
-output.heading("Workflow Details")
-output.print_mapping(
-    mapping={
-        key[len(context_prefix) :]: value
-        for key, value in environment.items()
-        if key.startswith(context_prefix)
-    },
-)
+output.heading("Workflow Details", 0)
 
-output.heading("Python Details")
+contexts = {
+    key[len(context_prefix) :]: json.loads(value)
+    for key, value in environment.items()
+    if key.startswith(context_prefix)
+}
+
+for name, value in contexts.items():
+    output.heading(name, level=1)
+    output.print(json.dumps(value, indent=4))
+
+output.heading("Python Details", 0)
 
 output.print("sys.version              :", sys.version)
 output.print("sys.prefix               :", sys.prefix)
@@ -72,7 +77,7 @@ output.print("sys.exec_prefix          :", sys.exec_prefix)
 output.print("sys.executable           :", sys.executable)
 output.print('struct.calcsize("P") * 8 :', struct.calcsize("P") * 8)
 
-output.heading("Environment Variables")
+output.heading("Environment Variables", 0)
 
 output.print_mapping(
     mapping={
@@ -82,7 +87,7 @@ output.print_mapping(
     },
 )
 
-output.heading("Installed Packages")
+output.heading("Installed Packages", 0)
 
 with open(os.devnull, "w") as devnull:
     try:
