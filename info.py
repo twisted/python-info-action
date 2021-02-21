@@ -53,18 +53,15 @@ output = Output()
 
 environment = dict(os.environ)
 
-context_names = {
-    "GITHUB_CONTEXT",
-    "JOB_CONTEXT",
-    "STEPS_CONTEXT",
-    "RUNNER_CONTEXT",
-    "STRATEGY_CONTEXT",
-    "MATRIX_CONTEXT",
-}
+context_prefix = "_PYTHON_INFO_ACTION_CONTEXT_"
 
 output.heading("Workflow Details")
 output.print_mapping(
-    mapping={key: value for key, value in environment.items() if key in context_names},
+    mapping={
+        key[len(context_prefix) :]: value
+        for key, value in environment.items()
+        if key.startswith(context_prefix)
+    },
 )
 
 output.heading("Python Details")
@@ -79,7 +76,9 @@ output.heading("Environment Variables")
 
 output.print_mapping(
     mapping={
-        key: value for key, value in environment.items() if key not in context_names
+        key: value
+        for key, value in environment.items()
+        if not key.startswith(context_prefix)
     },
 )
 

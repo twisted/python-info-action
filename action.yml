@@ -18,9 +18,9 @@ runs:
         python $GITHUB_ACTION_PATH/info.py
       env:
         ACTION_FILE_PATH: ${{ inputs.output-path }}
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-        JOB_CONTEXT: ${{ toJson(job) }}
-        STEPS_CONTEXT: ${{ toJson(steps) }}
-        RUNNER_CONTEXT: ${{ toJson(runner) }}
-        STRATEGY_CONTEXT: ${{ toJson(strategy) }}
-        MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        _PYTHON_INFO_ACTION_CONTEXT_GITHUB_CONTEXT: ${{ toJson(github) }}
+        _PYTHON_INFO_ACTION_CONTEXT_JOB_CONTEXT: ${{ toJson(job) }}
+        _PYTHON_INFO_ACTION_CONTEXT_STEPS_CONTEXT: ${{ toJson(steps) }}
+        _PYTHON_INFO_ACTION_CONTEXT_RUNNER_CONTEXT: ${{ toJson(runner) }}
+        _PYTHON_INFO_ACTION_CONTEXT_STRATEGY_CONTEXT: ${{ toJson(strategy) }}
+        _PYTHON_INFO_ACTION_CONTEXT_MATRIX_CONTEXT: ${{ toJson(matrix) }}
