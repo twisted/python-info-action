@@ -37,7 +37,35 @@ class Output:
     def value(self):
         return "".join(chunk for chunk in self.chunks)
 
+    def print_mapping(self, mapping):
+        maximum_key_length = max(len(repr(key)) for key in environment.keys())
+
+        for name, value in sorted(environment.items()):
+            line = "{: <{}} : {}".format(
+                repr(name),
+                maximum_key_length,
+                repr(value),
+            )
+            self.print(line)
+
+
 output = Output()
+
+environment = dict(os.environ)
+
+context_names = [
+    "GITHUB_CONTEXT",
+    "JOB_CONTEXT",
+    "STEPS_CONTEXT",
+    "RUNNER_CONTEXT",
+    "STRATEGY_CONTEXT",
+    "MATRIX_CONTEXT",
+]
+
+output.heading("Workflow Details")
+output.print_mapping(
+    mapping={key: value for key, value in environment.items() if key in context_names},
+)
 
 output.heading("Python Details")
 
@@ -45,28 +73,15 @@ output.print("sys.version              :", sys.version)
 output.print("sys.prefix               :", sys.prefix)
 output.print("sys.exec_prefix          :", sys.exec_prefix)
 output.print("sys.executable           :", sys.executable)
-output.print("struct.calcsize(\"P\") * 8 :", struct.calcsize("P") * 8)
+output.print('struct.calcsize("P") * 8 :', struct.calcsize("P") * 8)
 
 output.heading("Environment Variables")
 
-environment = dict(os.environ)
-
-maximum_key_length = max(
-    len(repr(key))
-    for key in environment.keys()
-)
-
-for name, value in sorted(environment.items()):
-    line = "{: <{}} : {}".format(
-        repr(name),
-        maximum_key_length,
-        repr(value),
-    )
-    output.print(line)
+output.print_mapping(mapping=environment)
 
 output.heading("Installed Packages")
 
-with open(os.devnull, 'w') as devnull:
+with open(os.devnull, "w") as devnull:
     try:
         subprocess.check_call(
             [sys.executable, "-m", "pip", "--no-python-version-warning"],
@@ -98,5 +113,5 @@ else:
 
 output_path = os.environ.get("ACTION_FILE_PATH", "")
 if output_path != "":
-    with open(output_path, 'w') as f:
+    with open(output_path, "w") as f:
         f.write(output.value())
