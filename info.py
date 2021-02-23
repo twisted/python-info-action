@@ -23,6 +23,7 @@ class Output:
     def __init__(self):
         self.chunks = []
         self.heading_marks = ["=", "-"]
+        self.group_open = False
 
     def print(self, *args, **kwargs):
         file = NativeIO()
@@ -33,9 +34,18 @@ class Output:
 
     def heading(self, name, level):
         self.print()
+
+        if level == 0:
+            if self.group_open:
+                # The final end group is being intentionally ignored at present.
+                sys.stdout.write("::endgroup::\n")
+            sys.stdout.write("::group::{name}".format(name=name))
+
         self.print(name)
         self.print(self.heading_marks[level] * len(name))
         self.print()
+
+        self.group_open = True
 
     def value(self):
         return "".join(chunk for chunk in self.chunks)
