@@ -9,6 +9,7 @@ import sys
 
 PY2 = sys.version_info[0] == 2
 PY3 = sys.version_info[0] == 3
+CONTEXT_PREFIX = "_PYTHON_INFO_ACTION_CONTEXT_"
 
 if PY2:
     NativeIO = io.BytesIO
@@ -55,8 +56,6 @@ output = Output()
 
 environment = dict(os.environ)
 
-context_prefix = "_PYTHON_INFO_ACTION_CONTEXT_"
-
 output.heading("Python Details", 0)
 
 output.print("sys.version              :", sys.version)
@@ -71,7 +70,7 @@ output.print_mapping(
     mapping={
         key: value
         for key, value in environment.items()
-        if not key.startswith(context_prefix)
+        if not key.startswith(CONTEXT_PREFIX)
     },
 )
 
@@ -110,9 +109,9 @@ else:
 output.heading("Workflow Details", 0)
 
 contexts = {
-    key[len(context_prefix) :]: json.loads(value)
+    key[len(CONTEXT_PREFIX):]: json.loads(value)
     for key, value in environment.items()
-    if key.startswith(context_prefix)
+    if key.startswith(CONTEXT_PREFIX)
 }
 
 for name, value in contexts.items():
