@@ -39,7 +39,7 @@ class Output:
             if self.group_open:
                 # The final end group is being intentionally ignored at present.
                 sys.stdout.write("::endgroup::\n")
-            sys.stdout.write("::group::{name}".format(name=name))
+            sys.stdout.write("::group::{name}\n".format(name=name))
 
         self.print(name)
         self.print(self.heading_marks[level] * len(name))
