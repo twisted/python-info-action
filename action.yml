@@ -6,7 +6,7 @@ inputs:
     required: False
     default: ""
   python_path:
-    description: "The Python command to used to run the script."
+    description: "The Python command for the environment to report on."
     required: False
     default: "python"
 outputs:
