@@ -91,7 +91,8 @@ jobs:
     - name: Create env and install requests
       shell: bash
       run: |
-        python -m venv an_env
+        python -m pip install virtualenv
+        python -m virtualenv -p python an_env
         an_env/*/python -m pip install six==1.15.0
 
     - name: Run the action for the env
