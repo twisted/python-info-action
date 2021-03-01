@@ -21,6 +21,7 @@ If you want the output stored to a file you can specify a path for this.
     - uses: twisted/python-info-action@v1.0.1
       with:
         output-path: environment.log
+        python-path: env/*/python
 
 GitHub provides |uses_documentation|_.
 

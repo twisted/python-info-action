@@ -5,7 +5,7 @@ inputs:
     description: "A file path to write the information to."
     required: False
     default: ""
-  python_path:
+  python-path:
     description: "The Python command for the environment to report on."
     required: False
     default: "python"
