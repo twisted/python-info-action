@@ -88,6 +88,28 @@ jobs:
       run: |
         python test.py --path output_post.log --package attrs 20.3.0
 
+    - name: Create env and install requests
+      shell: bash
+      run: |
+        python -m venv an_env
+        an_env/*/python -m pip install six==1.15.0
+
+    - name: Run the action for the env
+      uses: ./
+      with:
+        output-path: output_env.log
+        python: an_env/*/python
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: ${{ matrix.os.name }} - ${{ matrix.python.name }}
+        path: output_env.log
+
+    - name: Test
+      shell: bash
+      run: |
+        python test.py --path output_env.log --package six 1.15.0
+
   all:
     name: All
     runs-on: ubuntu-latest
