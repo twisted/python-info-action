@@ -19,7 +19,7 @@ runs:
     - shell: bash
       id: the_run
       run: |
-        ${{ inputs.python_path }} $GITHUB_ACTION_PATH/info.py
+        ${{ inputs.python-path }} $GITHUB_ACTION_PATH/info.py
       env:
         ACTION_FILE_PATH: ${{ inputs.output-path }}
         _PYTHON_INFO_ACTION_CONTEXT_GitHub: ${{ toJson(github) }}
