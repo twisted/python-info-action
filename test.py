@@ -27,6 +27,16 @@ def parse_arguments(arguments):
         help="Argument and version pair.  You can pass multiple times.",
     )
 
+    parser.add_argument(
+        "--sys-prefix",
+        required=False,
+        default=sys.prefix,
+        help=(
+            "The sys.prefix to check for in case the tests are run in"
+            " an env other than the action."
+        ),
+    )
+
     return parser.parse_args(args=arguments)
 
 
