@@ -54,7 +54,7 @@ def main(raw_arguments):
     )
 
     assert re.search(
-        "^sys.prefix +: {}$".format(re.escape(sys.prefix)),
+        "^sys.prefix +: {}$".format(re.escape(arguments.sys_prefix)),
         output,
         re.MULTILINE,
     )
