@@ -2,7 +2,6 @@ from __future__ import print_function
 
 import argparse
 import os
-import pip
 import re
 import sys
 
@@ -59,7 +58,7 @@ def main(raw_arguments):
         re.MULTILINE,
     )
 
-    arguments.package.append(("pip", pip.__version__))
+    arguments.package.append(("pip", ".*"))
 
     for name, version in arguments.package:
         print("checking for: {}, {}".format(name, version))
