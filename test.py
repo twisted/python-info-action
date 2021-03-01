@@ -58,12 +58,16 @@ def main(raw_arguments):
         re.MULTILINE,
     )
 
-    arguments.package.append(("pip", ".*"))
+    arguments.package.append(("pip", None))
 
     for name, version in arguments.package:
+        if version is None:
+            re_version = ".*"
+        else:
+            re_version = re.escape(version)
         print("checking for: {}, {}".format(name, version))
         assert re.search(
-            "^{}=={}$".format(re.escape(name), re.escape(version)),
+            "^{}=={}$".format(re.escape(name), re_version),
             output,
             re.MULTILINE,
         )
