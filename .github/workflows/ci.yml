@@ -98,7 +98,7 @@ jobs:
       uses: ./
       with:
         output-path: output_env.log
-        python: an_env/*/python
+        python_path: an_env/*/python
 
     - uses: actions/upload-artifact@v2
       with:
