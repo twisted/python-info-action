@@ -5,6 +5,10 @@ inputs:
     description: "A file path to write the information to."
     required: False
     default: ""
+  python-path:
+    description: "The Python command for the environment to report on."
+    required: False
+    default: "python"
 outputs:
   output:
     description: "The full informational output"
@@ -15,7 +19,7 @@ runs:
     - shell: bash
       id: the_run
       run: |
-        python $GITHUB_ACTION_PATH/info.py
+        ${{ inputs.python-path }} $GITHUB_ACTION_PATH/info.py
       env:
         ACTION_FILE_PATH: ${{ inputs.output-path }}
         _PYTHON_INFO_ACTION_CONTEXT_GitHub: ${{ toJson(github) }}

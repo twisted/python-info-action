@@ -63,7 +63,7 @@ jobs:
         name: ${{ matrix.os.name }} - ${{ matrix.python.name }}
         path: output_pre.log
 
-    - name: Test
+    - name: Test - pre
       shell: bash
       run: |
         python test.py --path output_pre.log
@@ -83,10 +83,55 @@ jobs:
         name: ${{ matrix.os.name }} - ${{ matrix.python.name }}
         path: output_post.log
 
-    - name: Test
+    - name: Test - post
       shell: bash
       run: |
         python test.py --path output_post.log --package attrs 20.3.0
+
+    - name: Create env and install requests
+      shell: bash
+      run: |
+        python -m pip install virtualenv
+        python -m virtualenv -p python an_env
+        an_env/*/python -m pip install six==1.15.0
+
+    - name: Run the action for the env
+      uses: ./
+      with:
+        output-path: output_env.log
+        python-path: an_env/*/python
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: ${{ matrix.os.name }} - ${{ matrix.python.name }}
+        path: output_env.log
+
+    - name: Test - env
+      shell: bash
+      run: |
+        python test.py --path output_env.log --package six 1.15.0 --sys-prefix "$(an_env/*/python -c 'import sys; sys.stdout.write(sys.prefix)')"
+
+    - name: Create tox env with build installed
+      shell: bash
+      run: |
+        python -m pip install tox
+        python -m tox -c tox_example.ini --notest -e with_build
+
+    - name: Run the action for the env
+      uses: ./
+      with:
+        output-path: output_tox.log
+        python-path: .tox/with_build/*/python
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: ${{ matrix.os.name }} - ${{ matrix.python.name }}
+        path: output_tox.log
+
+    - name: Test - tox
+      shell: bash
+      run: |
+        python test.py --path output_tox.log --package build 0.3.1 --sys-prefix "$(.tox/with_build/*/python -c 'import sys; sys.stdout.write(sys.prefix)')"
 
   all:
     name: All

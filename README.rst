@@ -8,13 +8,24 @@ This GitHub Action dumps various information relevant to the Python environment.
 Usage
 -----
 
-The point of providing this feature as a GitHub Action is that it can be added to your CI configuration with just a single line.
+The point of providing this feature as a GitHub Action is that it can be easily added to your CI configuration with as little as a single line.
 
 .. code-block:: yaml
 
     - uses: twisted/python-info-action@v1.0.1
 
-If you want the output stored to a file you can specify a path for this.
+If you need to specify a Python executable to use instead of what would be found by searching the path, you can pass it via ``python-path``.
+This will be processed using bash so wildcards can be used.
+One common use for this would be to create a tox environment using ``--notest``, use this action with ``python-path: .tox/the_env/*/python``, then actually run the tox environment after.
+
+.. code-block:: yaml
+
+    - uses: twisted/python-info-action@v1.0.1
+      with:
+        python-path: env/*/python
+
+
+If you want the output stored to a file you can pass ``output-path``.
 
 .. code-block:: yaml
 
