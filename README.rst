@@ -20,7 +20,7 @@ One common use for this would be to create a tox environment using ``--notest``,
 
 .. code-block:: yaml
 
-    - uses: twisted/python-info-action@v1.0.1
+    - uses: twisted/python-info-action@v1.2
       with:
         python-path: env/*/python
 
