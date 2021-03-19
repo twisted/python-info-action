@@ -61,7 +61,7 @@ Sample Output
     Python Details
     ==============
 
-    sys.version              : 3.9.2 (default, Feb 19 2021, 19:41:08) 
+    sys.version              : 3.9.2 (default, Feb 19 2021, 19:41:08)
     [GCC 9.3.0]
     sys.prefix               : /opt/hostedtoolcache/Python/3.9.2/x64
     sys.exec_prefix          : /opt/hostedtoolcache/Python/3.9.2/x64
