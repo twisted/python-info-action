@@ -13,7 +13,7 @@ The point of providing this feature as a GitHub Action is that it can be easily 
 
 .. code-block:: yaml
 
-    - uses: twisted/python-info-action@v1.0.1
+    - uses: twisted/python-info-action@v1
 
 If you need to specify a Python executable to use instead of what would be found by searching the path, you can pass it via ``python-path``.
 This will be processed using bash so wildcards can be used.
@@ -21,7 +21,7 @@ One common use for this would be to create a tox environment using ``--notest``,
 
 .. code-block:: yaml
 
-    - uses: twisted/python-info-action@v1.0.1
+    - uses: twisted/python-info-action@v1
       with:
         python-path: env/*/python
 
@@ -30,7 +30,7 @@ If you want the output stored to a file you can pass ``output-path``.
 
 .. code-block:: yaml
 
-    - uses: twisted/python-info-action@v1.0.1
+    - uses: twisted/python-info-action@v1
       with:
         output-path: environment.log
 
