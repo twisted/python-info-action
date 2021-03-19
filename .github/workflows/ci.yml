@@ -2,11 +2,12 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - ${{ github.event.repository.default_branch }}
     tags:
       - "*"
   pull_request:
-    branches: [ main ]
+    branches: [ "**" ]
   schedule:
     # Daily at 04:52
     - cron: '52 4 * * *'
