@@ -102,7 +102,7 @@ Sample Output
     ------
 
     {
-        "token": "v1.0c46741a32436f591105a1c12ee7000683bfb58e",
+        "token": "***",
         "job": "ci",
         "ref": "refs/tags/v1",
         "sha": "49042d6852bce250821e1e91d8cea9e7d4dd5f81",
