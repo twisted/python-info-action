@@ -44,6 +44,8 @@ def main(raw_arguments):
     with open(arguments.path) as f:
         output = f.read()
 
+    assert "neverseethis" not in output
+
     relative_path = os.path.relpath(arguments.path, os.getcwd())
 
     assert re.search(

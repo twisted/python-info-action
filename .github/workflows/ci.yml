@@ -11,6 +11,9 @@ on:
     # Daily at 04:52
     - cron: '52 4 * * *'
 
+env:
+  A_SECRET: neverseethis
+
 jobs:
   ci:
     name: ${{ matrix.os.name }} - ${{ matrix.python.name }}
@@ -55,6 +58,8 @@ jobs:
 
     - name: Run the action
       uses: ./
+      env:
+        A_SECRET: '<masked>'
       with:
         output-path: output_pre.log
 
@@ -75,6 +80,8 @@ jobs:
 
     - name: Run the action with attrs installed
       uses: ./
+      env:
+        A_SECRET: '<masked>'
       with:
         output-path: output_post.log
 
@@ -97,6 +104,8 @@ jobs:
 
     - name: Run the action for the env
       uses: ./
+      env:
+        A_SECRET: '<masked>'
       with:
         output-path: output_env.log
         python-path: an_env/*/python
@@ -117,8 +126,10 @@ jobs:
         python -m pip install tox
         python -m tox -c tox_example.ini --notest -e with_build
 
-    - name: Run the action for the env
+    - name: Run the action for the tox env
       uses: ./
+      env:
+        A_SECRET: '<masked>'
       with:
         output-path: output_tox.log
         python-path: .tox/with_build/*/python
