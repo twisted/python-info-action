@@ -6,6 +6,12 @@ This is usually done ad hoc resulting in lots of unnecessarily repeated code tha
 This GitHub Action dumps various information relevant to the Python environment.
 
 
+Warning
+-------
+
+This action is designed specifically to log environmental data.  Environment variables can often contain secrets which you may not want exposed.  The `github` context contains an authentication token.  In general, if you use GitHub's secrets feature then they will be masked in the build log.  The file output option will not have any redaction. Notes are included below about details.
+
+
 Usage
 -----
 
@@ -25,8 +31,15 @@ One common use for this would be to create a tox environment using ``--notest``,
       with:
         python-path: env/*/python
 
+If you are not using GitHub's secrets feature, or otherwise want to mask environment variables for this action, you can just explicitly overwrite them.
 
-If you want the output stored to a file you can pass ``output-path``.
+.. code-block:: yaml
+
+    - uses: twisted/python-info-action@v1
+      env:
+        A_SECRET: '<redacted>'
+
+If you want the output stored to a file you can pass ``output-path``.  Remember that secrets will not generally be masked from this output.  Specifically note that the GitHub token will be present regardless.  For more explanation see |token_discussion|_.
 
 .. code-block:: yaml
 
@@ -38,20 +51,21 @@ GitHub provides |uses_documentation|_.
 
 .. |uses_documentation| replace:: more documentation for ``uses``
 .. _uses_documentation: https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepsuses
-
+.. |token_discussion| replace:: a discussion about the token
+.. _token_discussion: https://github.com/twisted/python-info-action/pull/11#discussion_r598122839
 
 Compatibility
 -------------
 
 Basic tests are run against various Python versions and operating systems.
 
-- Operating
-  - Linux
-  - macOS
-  - Windows
+- Operating System
+   - Linux
+   - macOS
+   - Windows
 - Python
-  - CPython 2.7, 3.5, 3.6, 3.7, 3.8, and 3.9
-  - PyPy 2 and 3
+   - CPython 2.7, 3.5, 3.6, 3.7, 3.8, and 3.9
+   - PyPy 2 and 3
 
 Sample Output
 -------------
