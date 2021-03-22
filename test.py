@@ -44,6 +44,11 @@ def main(raw_arguments):
     with open(arguments.path) as f:
         output = f.read()
 
+    secret_text = "neverseethis"
+
+    assert secret_text not in output
+    assert secret_text == os.environ["A_SECRET"]
+
     relative_path = os.path.relpath(arguments.path, os.getcwd())
 
     assert re.search(
