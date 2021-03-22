@@ -9,7 +9,12 @@ This GitHub Action dumps various information relevant to the Python environment.
 Warning
 -------
 
-This action is designed specifically to log environmental data.  Environment variables can often contain secrets which you may not want exposed.  The `github` context contains an authentication token.  In general, if you use GitHub's secrets feature then they will be masked in the build log.  The file output option will not have any redaction. Notes are included below about details.
+This action is designed specifically to log environmental data.
+Environment variables can often contain secrets which you may not want exposed.
+The ``github`` context contains an authentication token.
+In general, if you use GitHub's secrets feature then they will be masked in the build log.
+The file output option will not have any redaction.
+Notes are included below about details.
 
 
 Usage
@@ -39,7 +44,10 @@ If you are not using GitHub's secrets feature, or otherwise want to mask environ
       env:
         A_SECRET: '<redacted>'
 
-If you want the output stored to a file you can pass ``output-path``.  Remember that secrets will not generally be masked from this output.  Specifically note that the GitHub token will be present regardless.  For more explanation see |token_discussion|_.
+If you want the output stored to a file you can pass ``output-path``.
+Remember that secrets will not be masked from this output.
+Specifically note that the GitHub token will be present regardless.
+For more explanation see |token_discussion|_.
 
 .. code-block:: yaml
 
