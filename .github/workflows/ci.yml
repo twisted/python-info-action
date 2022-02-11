@@ -43,10 +43,10 @@ jobs:
             action: 3.9
           - name: PyPy 2.7
             action: pypy-2.7
-          - name: PyPy 3.6
-            action: pypy-3.6
           - name: PyPy 3.7
             action: pypy-3.7
+          - name: PyPy 3.8
+            action: pypy-3.8
 
     steps:
     - uses: actions/checkout@v2
