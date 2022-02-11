@@ -73,7 +73,7 @@ Basic tests are run against various Python versions and operating systems.
    - Windows
 - Python
    - CPython 2.7, 3.5, 3.6, 3.7, 3.8, and 3.9
-   - PyPy 2 and 3
+   - PyPy 2, 3.7, and 3.8
 
 Sample Output
 -------------
