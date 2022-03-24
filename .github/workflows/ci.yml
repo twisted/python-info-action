@@ -16,17 +16,20 @@ env:
 
 jobs:
   ci:
-    name: ${{ matrix.os.name }} - ${{ matrix.python.name }}
+    name: ${{ matrix.os.emoji }} - ${{ matrix.python.name }}
     runs-on: ${{ matrix.os.runs-on }}
     strategy:
       fail-fast: false
       matrix:
         os:
           - name: Linux
+            emoji: 🐧
             runs-on: ubuntu-latest
           - name: Windows
+            emoji: 🪟
             runs-on: windows-latest
           - name: macOS
+            emoji: 🍎
             runs-on: macos-latest
         python:
           - name: CPython 2.7
