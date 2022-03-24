@@ -70,7 +70,7 @@ def main(raw_arguments):
     )
 
     assert re.search(
-        "^'Py_DEBUG' +: [01]$",
+        "^'platbase' +: ",
         output,
         re.MULTILINE,
     )
