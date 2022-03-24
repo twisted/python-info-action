@@ -63,6 +63,18 @@ def main(raw_arguments):
         re.MULTILINE,
     )
 
+    assert re.search(
+        "^'platstdlib' +: ",
+        output,
+        re.MULTILINE,
+    )
+
+    assert re.search(
+        "^'Py_DEBUG' +: [01]$",
+        output,
+        re.MULTILINE,
+    )
+
     arguments.package.append(("pip", None))
 
     for name, version in arguments.package:
