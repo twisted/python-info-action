@@ -77,6 +77,9 @@ output.print('struct.calcsize("P") * 8 :', struct.calcsize("P") * 8)
 output.heading("Python Configuration", 0)
 
 configuration = subprocess.check_output([sys.executable, "-m", "sysconfig"])
+if PY3:
+    configuration = configuration.decode()
+
 output.print(configuration.rstrip())
 
 output.heading("Environment Variables", 0)
