@@ -74,6 +74,11 @@ output.print("sys.exec_prefix          :", sys.exec_prefix)
 output.print("sys.executable           :", sys.executable)
 output.print('struct.calcsize("P") * 8 :', struct.calcsize("P") * 8)
 
+output.heading("Python Configuration", 0)
+
+configuration = subprocess.check_output([sys.executable, "-m", "sysconfig"])
+output.print(configuration.rstrip())
+
 output.heading("Environment Variables", 0)
 
 output.print_mapping(
