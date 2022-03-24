@@ -6,6 +6,7 @@ import os
 import struct
 import subprocess
 import sys
+import sysconfig
 
 PY2 = sys.version_info[0] == 2
 PY3 = sys.version_info[0] == 3
@@ -76,9 +77,16 @@ output.print('struct.calcsize("P") * 8 :', struct.calcsize("P") * 8)
 
 output.heading("Python Configuration", 0)
 
-configuration = subprocess.check_output([sys.executable, "-m", "sysconfig"])
-if PY3:
-    configuration = configuration.decode()
+output.print("sysconfig.get_platform()       :", sysconfig.get_platform())
+output.print("sysconfig.get_python_version() :", sysconfig.get_python_version())
+
+output.heading("Paths", level=1)
+output.print_mapping(sysconfig.get_paths())
+
+output.heading("Variables", level=1)
+output.print_mapping(sysconfig.get_config_vars())
+
+output.heading("Python Configuration", 0)
 
 output.print(configuration.rstrip())
 
