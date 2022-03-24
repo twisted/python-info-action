@@ -86,10 +86,6 @@ output.print_mapping(sysconfig.get_paths())
 output.heading("Variables", level=1)
 output.print_mapping(sysconfig.get_config_vars())
 
-output.heading("Python Configuration", 0)
-
-output.print(configuration.rstrip())
-
 output.heading("Environment Variables", 0)
 
 output.print_mapping(
