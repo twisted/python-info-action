@@ -63,6 +63,18 @@ def main(raw_arguments):
         re.MULTILINE,
     )
 
+    assert re.search(
+        "^'platstdlib' +: ",
+        output,
+        re.MULTILINE,
+    )
+
+    assert re.search(
+        "^'platbase' +: ",
+        output,
+        re.MULTILINE,
+    )
+
     arguments.package.append(("pip", None))
 
     for name, version in arguments.package:
