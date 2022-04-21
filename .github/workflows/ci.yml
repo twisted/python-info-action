@@ -11,39 +11,47 @@ on:
     # Daily at 04:52
     - cron: '52 4 * * *'
 
+env:
+  A_SECRET: neverseethis
+
 jobs:
   ci:
-    name: ${{ matrix.os.name }} - ${{ matrix.python.name }}
+    name: ${{ matrix.os.emoji }} - ${{ matrix.python.name }}
     runs-on: ${{ matrix.os.runs-on }}
     strategy:
       fail-fast: false
       matrix:
         os:
           - name: Linux
+            emoji: 🐧
             runs-on: ubuntu-latest
           - name: Windows
+            emoji: 🪟
             runs-on: windows-latest
           - name: macOS
+            emoji: 🍎
             runs-on: macos-latest
         python:
           - name: CPython 2.7
-            action: 2.7
+            action: '2.7'
           - name: CPython 3.5
-            action: 3.5
+            action: '3.5'
           - name: CPython 3.6
-            action: 3.6
+            action: '3.6'
           - name: CPython 3.7
-            action: 3.7
+            action: '3.7'
           - name: CPython 3.8
-            action: 3.8
+            action: '3.8'
           - name: CPython 3.9
-            action: 3.9
+            action: '3.9'
+          - name: CPython 3.10
+            action: '3.10'
           - name: PyPy 2.7
             action: pypy-2.7
-          - name: PyPy 3.6
-            action: pypy-3.6
           - name: PyPy 3.7
             action: pypy-3.7
+          - name: PyPy 3.8
+            action: pypy-3.8
 
     steps:
     - uses: actions/checkout@v2
@@ -55,6 +63,8 @@ jobs:
 
     - name: Run the action
       uses: ./
+      env:
+        A_SECRET: '<masked>'
       with:
         output-path: output_pre.log
 
@@ -63,7 +73,7 @@ jobs:
         name: ${{ matrix.os.name }} - ${{ matrix.python.name }}
         path: output_pre.log
 
-    - name: Test
+    - name: Test - pre
       shell: bash
       run: |
         python test.py --path output_pre.log
@@ -75,6 +85,8 @@ jobs:
 
     - name: Run the action with attrs installed
       uses: ./
+      env:
+        A_SECRET: '<masked>'
       with:
         output-path: output_post.log
 
@@ -83,10 +95,59 @@ jobs:
         name: ${{ matrix.os.name }} - ${{ matrix.python.name }}
         path: output_post.log
 
-    - name: Test
+    - name: Test - post
       shell: bash
       run: |
         python test.py --path output_post.log --package attrs 20.3.0
+
+    - name: Create env and install requests
+      shell: bash
+      run: |
+        python -m pip install virtualenv
+        python -m virtualenv -p python an_env
+        an_env/*/python -m pip install six==1.15.0
+
+    - name: Run the action for the env
+      uses: ./
+      env:
+        A_SECRET: '<masked>'
+      with:
+        output-path: output_env.log
+        python-path: an_env/*/python
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: ${{ matrix.os.name }} - ${{ matrix.python.name }}
+        path: output_env.log
+
+    - name: Test - env
+      shell: bash
+      run: |
+        python test.py --path output_env.log --package six 1.15.0 --sys-prefix "$(an_env/*/python -c 'import sys; sys.stdout.write(sys.prefix)')"
+
+    - name: Create tox env with build installed
+      shell: bash
+      run: |
+        python -m pip install tox
+        python -m tox -c tox_example.ini --notest -e with_build
+
+    - name: Run the action for the tox env
+      uses: ./
+      env:
+        A_SECRET: '<masked>'
+      with:
+        output-path: output_tox.log
+        python-path: .tox/with_build/*/python
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: ${{ matrix.os.name }} - ${{ matrix.python.name }}
+        path: output_tox.log
+
+    - name: Test - tox
+      shell: bash
+      run: |
+        python test.py --path output_tox.log --package build 0.3.1 --sys-prefix "$(.tox/with_build/*/python -c 'import sys; sys.stdout.write(sys.prefix)')"
 
   all:
     name: All

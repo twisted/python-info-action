@@ -2,7 +2,6 @@ from __future__ import print_function
 
 import argparse
 import os
-import pip
 import re
 import sys
 
@@ -27,6 +26,16 @@ def parse_arguments(arguments):
         help="Argument and version pair.  You can pass multiple times.",
     )
 
+    parser.add_argument(
+        "--sys-prefix",
+        required=False,
+        default=sys.prefix,
+        help=(
+            "The sys.prefix to check for in case the tests are run in"
+            " an env other than the action."
+        ),
+    )
+
     return parser.parse_args(args=arguments)
 
 
@@ -34,6 +43,11 @@ def main(raw_arguments):
     arguments = parse_arguments(arguments=raw_arguments)
     with open(arguments.path) as f:
         output = f.read()
+
+    secret_text = "neverseethis"
+
+    assert secret_text not in output
+    assert secret_text == os.environ["A_SECRET"]
 
     relative_path = os.path.relpath(arguments.path, os.getcwd())
 
@@ -44,17 +58,33 @@ def main(raw_arguments):
     )
 
     assert re.search(
-        "^sys.prefix +: {}$".format(re.escape(sys.prefix)),
+        "^sys.prefix +: {}$".format(re.escape(arguments.sys_prefix)),
         output,
         re.MULTILINE,
     )
 
-    arguments.package.append(("pip", pip.__version__))
+    assert re.search(
+        "^'platstdlib' +: ",
+        output,
+        re.MULTILINE,
+    )
+
+    assert re.search(
+        "^'platbase' +: ",
+        output,
+        re.MULTILINE,
+    )
+
+    arguments.package.append(("pip", None))
 
     for name, version in arguments.package:
+        if version is None:
+            re_version = ".*"
+        else:
+            re_version = re.escape(version)
         print("checking for: {}, {}".format(name, version))
         assert re.search(
-            "^{}=={}$".format(re.escape(name), re.escape(version)),
+            "^{}=={}$".format(re.escape(name), re_version),
             output,
             re.MULTILINE,
         )
