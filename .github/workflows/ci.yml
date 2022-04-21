@@ -54,6 +54,11 @@ jobs:
             action: pypy-3.8
 
     steps:
+    - name: fail
+      if: matrix.os.name == 'Linux' and matrix.python.action == '3.7'
+      run: |
+        false
+
     - uses: actions/checkout@v2
 
     - name: Set up ${{ matrix.python.name }}
