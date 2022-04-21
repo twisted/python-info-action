@@ -55,7 +55,7 @@ jobs:
 
     steps:
     - name: fail
-      if: matrix.os.name == 'Linux' and matrix.python.action == '3.7'
+      if: matrix.os.name == 'Linux' && matrix.python.action == '3.7'
       run: |
         false
 
