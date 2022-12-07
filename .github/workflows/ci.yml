@@ -37,7 +37,7 @@ jobs:
         python:
           - name: CPython 2.7
             action: '2.7'
-            matrix: '2.7
+            matrix: '2.7'
           - name: CPython 3.5
             action: '3.5'
             matrix: '3.5'
