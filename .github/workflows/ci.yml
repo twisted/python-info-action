@@ -23,35 +23,57 @@ jobs:
       matrix:
         os:
           - name: Linux
+            matrix: linux
             emoji: 🐧
             runs-on: ubuntu-latest
           - name: Windows
+            matrix: windows
             emoji: 🪟
             runs-on: windows-latest
           - name: macOS
+            matrix: macos
             emoji: 🍎
             runs-on: macos-latest
         python:
           - name: CPython 2.7
             action: '2.7'
+            matrix: '2.7
           - name: CPython 3.5
             action: '3.5'
+            matrix: '3.5'
           - name: CPython 3.6
             action: '3.6'
+            matrix: '3.6'
           - name: CPython 3.7
             action: '3.7'
+            matrix: '3.7'
           - name: CPython 3.8
             action: '3.8'
+            matrix: '3.8'
           - name: CPython 3.9
             action: '3.9'
+            matrix: '3.9'
           - name: CPython 3.10
             action: '3.10'
+            matrix: '3.10'
           - name: PyPy 2.7
             action: pypy-2.7
+            matrix: pypy-2.7
           - name: PyPy 3.7
             action: pypy-3.7
+            matrix: pypy-3.7
           - name: PyPy 3.8
             action: pypy-3.8
+            matrix: pypy-3.8
+        exclude:
+          - os:
+              matrix: linux
+            python:
+              matrix: '3.5'
+          - os:
+              matrix: linux
+            python:
+              matrix: '3.6'
 
     steps:
     - uses: actions/checkout@v2
