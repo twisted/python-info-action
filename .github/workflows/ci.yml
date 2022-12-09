@@ -54,10 +54,10 @@ jobs:
             action: pypy-3.8
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Set up ${{ matrix.python.name }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python.action }}
 
@@ -68,7 +68,7 @@ jobs:
       with:
         output-path: output_pre.log
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.os.name }} - ${{ matrix.python.name }}
         path: output_pre.log
@@ -90,7 +90,7 @@ jobs:
       with:
         output-path: output_post.log
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.os.name }} - ${{ matrix.python.name }}
         path: output_post.log
@@ -115,7 +115,7 @@ jobs:
         output-path: output_env.log
         python-path: an_env/*/python
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.os.name }} - ${{ matrix.python.name }}
         path: output_env.log
@@ -139,7 +139,7 @@ jobs:
         output-path: output_tox.log
         python-path: .tox/with_build/*/python
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.os.name }} - ${{ matrix.python.name }}
         path: output_tox.log
