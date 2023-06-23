@@ -23,20 +23,15 @@ jobs:
       matrix:
         os:
           - name: Linux
-            matrix: linux
             emoji: 🐧
             runs-on: ubuntu-latest
           - name: Windows
-            matrix: windows
             emoji: 🪟
             runs-on: windows-latest
           - name: macOS
-            matrix: macos
             emoji: 🍎
             runs-on: macos-latest
         python:
-          - name: CPython 2.7
-            action: '2.7'
           - name: CPython 3.7
             action: '3.7'
           - name: CPython 3.8
@@ -51,15 +46,6 @@ jobs:
             action: pypy-3.7
           - name: PyPy 3.8
             action: pypy-3.8
-        exclude:
-          - python:
-              action: '2.7'
-            os:
-              matrix: macos
-          - python:
-              action: '2.7'
-            os:
-              matrix: windows
 
     steps:
     - uses: actions/checkout@v3
