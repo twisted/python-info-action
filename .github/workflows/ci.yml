@@ -6,7 +6,7 @@ on:
     tags:
       - "*"
   pull_request:
-    branches: [ main ]
+    branches: [ "**" ]
   schedule:
     # Daily at 04:52
     - cron: '52 4 * * *'
