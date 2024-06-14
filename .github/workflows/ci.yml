@@ -33,8 +33,6 @@ jobs:
             emoji: 🍎
             runs-on: macos-latest
         python:
-          - name: CPython 2.7
-            action: '2.7'
           - name: CPython 3.7
             action: '3.7'
           - name: CPython 3.8
