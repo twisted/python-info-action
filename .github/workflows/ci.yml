@@ -52,12 +52,16 @@ jobs:
             action: '3.9'
           - name: CPython 3.10
             action: '3.10'
+          - name: CPython 3.11
+            action: '3.11'
+          - name: CPython 3.12
+            action: '3.12'
           - name: PyPy 2.7
             action: pypy-2.7
-          - name: PyPy 3.7
-            action: pypy-3.7
-          - name: PyPy 3.8
-            action: pypy-3.8
+          - name: PyPy 3.9
+            action: pypy-3.9
+          - name: PyPy 3.10
+            action: pypy-3.10
         exclude:
           - os:
               matrix: linux
