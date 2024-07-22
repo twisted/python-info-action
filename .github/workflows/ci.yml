@@ -79,6 +79,10 @@ jobs:
               matrix: arm
             python:
               action: 'pypy-3.7'
+          - os:
+              matrix: windows
+            python:
+              action: 'pypy-2.7'
 
     steps:
     - uses: actions/checkout@v3
