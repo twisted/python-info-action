@@ -73,6 +73,12 @@ jobs:
               matrix: arm
             python:
               action: '3.7'
+          - os:
+              matrix: macos
+            arch:
+              matrix: arm
+            python:
+              action: 'pypy-3.7'
 
     steps:
     - uses: actions/checkout@v3
