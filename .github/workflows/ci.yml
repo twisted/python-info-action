@@ -17,20 +17,27 @@ env:
 jobs:
   ci:
     name: ${{ matrix.os.emoji }} - ${{ matrix.python.name }}
-    runs-on: ${{ matrix.os.runs-on }}
+    runs-on: ${{ matrix.os.runs-on[matrix.arch.matrix] }}
     strategy:
       fail-fast: false
       matrix:
         os:
           - name: Linux
             emoji: 🐧
-            runs-on: ubuntu-latest
+            runs-on:
+                intel: ubuntu-latest
+            matrix: linux
           - name: Windows
             emoji: 🪟
-            runs-on: windows-latest
+            runs-on:
+              intel: windows-latest
+            matrix: windows
           - name: macOS
             emoji: 🍎
-            runs-on: macos-latest
+            runs-on:
+              arm: macos-latest
+              intel: macos-12
+            matrix: macos
         python:
           - name: CPython 3.7
             action: '3.7'
@@ -46,6 +53,20 @@ jobs:
             action: pypy-3.7
           - name: PyPy 3.8
             action: pypy-3.8
+        arch:
+          - name: ARM
+            matrix: arm
+          - name: Intel
+            matrix: intel
+        exclue:
+          - os:
+              matrix: linux
+            arch:
+              matrix: arm
+          - os:
+              matrix: windows
+            arch:
+              matrix: arm
 
     steps:
     - uses: actions/checkout@v3
