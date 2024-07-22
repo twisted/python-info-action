@@ -58,7 +58,7 @@ jobs:
             matrix: arm
           - name: Intel
             matrix: intel
-        exclue:
+        exclude:
           - os:
               matrix: linux
             arch:
