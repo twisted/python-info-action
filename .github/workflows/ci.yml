@@ -58,11 +58,6 @@ jobs:
             action: pypy-3.7
           - name: PyPy 3.8
             action: pypy-3.8
-        arch:
-          - name: ARM
-            matrix: arm
-          - name: Intel
-            matrix: intel
         exclude:
           - os:
               matrix: linux
